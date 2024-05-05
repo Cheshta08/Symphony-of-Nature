@@ -450,9 +450,13 @@ if(k==179)
 
 
   ]).then(() => {
+     setTimeout(() => {
+      animate()
+    }, 10000)
+
     
     
-      animate();
+      
   
 
     
