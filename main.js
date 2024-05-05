@@ -83,9 +83,9 @@ function main() {
 
 
   // Initial positions
-  var boatX = 800; // Initial position of the boat along the x-axis (starting from right)
+  var boatX = canvas.width; // Initial position of the boat along the x-axis (starting from right)
   var waterX = 0; // Initial position of the water along the x-axis
-  const waterY = 425;
+  const waterY = canvas.height*0.72;
   var sunX = -50;
   var sunY = 50;// Fixed position of the water along the y-axis
   var night=0;
@@ -103,8 +103,8 @@ function main() {
 var dark=false;
   const frameUrls = ['fly-0.png', 'fly-1.png', 'fly-2.png', 'fly-3.png', 'fly-4.png',
     'fly-5.png', 'fly-6.png', 'fly-7.png',]; // Add URLs for your frames
-  birdX = 30;
-  birdY = 120;
+  birdX = canvas.width*0.1;
+  birdY = canvas.height*0.2;
  
 
   const frame2Urls = ['walking-0.png','walking-1.png','walking-2.png','walking-3.png','walking-4.png','walking-5.png',
@@ -141,7 +141,7 @@ const frame3Urls=['ezgif-frame-001.png', 'ezgif-frame-002.png', 'ezgif-frame-003
 
 // Add URLs for your frame
   walk_X = canvas.width+100;
-  walk_Y = 350;
+  walk_Y = canvas.height*0.6;
   moonX = canvas.width+20 ;
   moonY = 150;
   skyX = 0;
@@ -161,16 +161,16 @@ scaleX=canvas.width/landImg.width
 
     ctx.drawImage(skyImg, skyX, skyY, skyImg.width, skyImg.height / 2);
    
-     ctx.drawImage(landImg, 0, -100, landImg.width*scaleX , landImg.height/2);
+     ctx.drawImage(landImg, 0, -canvas.height*0.2, landImg.width*scaleX , landImg.height/2);
 
 
  
    
 
     
-    ctx.drawImage(potImg, 300, 300, potImg.width /8, potImg.height /8);
+    ctx.drawImage(potImg, canvas.width*0.3, canvas.height*0.5, potImg.width /8, potImg.height /8);
     
-    ctx.drawImage(flowerImg,240,250 , flowerImg.width/4, flowerImg.height/4);
+    ctx.drawImage(flowerImg,canvas.width*0.249,canvas.height*0.412 , flowerImg.width/4, flowerImg.height/4);
 
 
 
@@ -207,10 +207,10 @@ scaleX=canvas.width/landImg.width
 
         // Flip horizontally
 
-        ctx.drawImage(boatImg, boatX, 400, boatImg.width / 3, boatImg.height / 3);
+        ctx.drawImage(boatImg, boatX, canvas.height*0.7, boatImg.width / 3, boatImg.height / 3);
         
       } else {
-        ctx.drawImage(flippedImg, boatX, 400, boatImg.width / 3, boatImg.height / 3);
+        ctx.drawImage(flippedImg, boatX, canvas.height*0.7, boatImg.width / 3, boatImg.height / 3);
         
       }
     }
@@ -399,7 +399,7 @@ if(k==179)
     // Request the next animation frame
     setTimeout(() => {
       requestAnimationFrame(animate);
-    }, 100)
+    }, 60)
 
 
   }
@@ -450,13 +450,9 @@ if(k==179)
 
 
   ]).then(() => {
-     setTimeout(() => {
-      animate()
-    }, 10000)
-
     
     
-      
+      animate();
   
 
     
