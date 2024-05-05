@@ -421,6 +421,30 @@ if(k==179)
     ctx.globalCompositeOperation = 'source-over';
     ctx.restore()
   }
+  const framePromises = frameUrls.map((url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img); // Resolve the promise when image is loaded
+      img.onerror = (error) => reject(error); // Reject the promise on image load error
+      img.src = url; // Start loading the image by setting its src
+    });
+  });
+  const frame2Promises = frame2Urls.map((url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img); // Resolve the promise when image is loaded
+      img.onerror = (error) => reject(error); // Reject the promise on image load error
+      img.src = url; // Start loading the image by setting its src
+    });
+  });
+  const frame3Promises = frame3Urls.map((url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img); // Resolve the promise when image is loaded
+      img.onerror = (error) => reject(error); // Reject the promise on image load error
+      img.src = url; // Start loading the image by setting its src
+    });
+  });
   // Start the animation when both images are loaded
   Promise.all([
     new Promise((resolve, reject) => {
