@@ -399,7 +399,7 @@ if(k==179)
     // Request the next animation frame
     setTimeout(() => {
       requestAnimationFrame(animate);
-    }, 60)
+    }, 40)
 
 
   }
@@ -421,69 +421,58 @@ if(k==179)
     ctx.globalCompositeOperation = 'source-over';
     ctx.restore()
   }
-  const framePromises = frameUrls.map((url) => {
+  function loadImagePromise(url) {
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.onload = () => resolve(img); // Resolve the promise when image is loaded
       img.onerror = (error) => reject(error); // Reject the promise on image load error
       img.src = url; // Start loading the image by setting its src
     });
-  });
-  const frame2Promises = frame2Urls.map((url) => {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => resolve(img); // Resolve the promise when image is loaded
-      img.onerror = (error) => reject(error); // Reject the promise on image load error
-      img.src = url; // Start loading the image by setting its src
-    });
-  });
-  const frame3Promises = frame3Urls.map((url) => {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => resolve(img); // Resolve the promise when image is loaded
-      img.onerror = (error) => reject(error); // Reject the promise on image load error
-      img.src = url; // Start loading the image by setting its src
-    });
-  });
-  // Start the animation when both images are loaded
-  Promise.all([
-    new Promise((resolve, reject) => {
-      waterImg.onload = resolve;
-    }),
-    new Promise((resolve, reject) => {
-      boatImg.onload = resolve;
-    }),
-
-    new Promise((resolve, reject) => {
-      sunImg.onload = resolve;
-    }),
-
-    new Promise((resolve, reject) => {
-      landImg.onload = resolve;
-    }),
-    new Promise((resolve, reject) => {
-      walk_Img.onload = resolve;
-    }),
-    new Promise((resolve, reject) => {
-      flowerImg.onload = resolve;
-    }),
-
-    
-
-
-
-
-  ]).then(() => {
-    
-    
-      animate();
+  }
   
 
-    
-    // Once both images are loaded, start the animation
-    
-  });
+// Create an array of promises for each set of image URLs
+const framePromises = frameUrls.map((url) => loadImagePromise(url));
+const frame2Promises = frame2Urls.map((url) => loadImagePromise(url));
+const frame3Promises = frame3Urls.map((url) => loadImagePromise(url));
 
+// Combine all promises into a single array
+const allPromises = [
+  new Promise((resolve, reject) => {
+    waterImg.onload = resolve;
+  }),
+  new Promise((resolve, reject) => {
+    boatImg.onload = resolve;
+  }),
+  new Promise((resolve, reject) => {
+    sunImg.onload = resolve;
+  }),
+  new Promise((resolve, reject) => {
+    landImg.onload = resolve;
+  }),
+  new Promise((resolve, reject) => {
+    walk_Img.onload = resolve;
+  }),
+  new Promise((resolve, reject) => {
+    flowerImg.onload = resolve;
+  }),
+  ...framePromises,
+  ...frame2Promises,
+  ...frame3Promises,
+];
+
+// Wait for all promises to resolve
+Promise.all(allPromises)
+  .then(() => {
+    // All images are loaded successfully
+    console.log('All images loaded');
+    // Now you can start your animation or perform any other logic
+    animate();
+  })
+  .catch((error) => {
+    // Handle any errors that occurred during image loading
+    console.error('Error loading images:', error);
+  });
 
 }
 
