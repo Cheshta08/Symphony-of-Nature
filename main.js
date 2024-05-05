@@ -83,9 +83,9 @@ function main() {
 
 
   // Initial positions
-  var boatX = canvas.width; // Initial position of the boat along the x-axis (starting from right)
+  var boatX = canvas.width+100; // Initial position of the boat along the x-axis (starting from right)
   var waterX = 0; // Initial position of the water along the x-axis
-  const waterY = canvas.height*0.72;
+  const waterY = canvas.height*0.7;
   var sunX = -50;
   var sunY = 50;// Fixed position of the water along the y-axis
   var night=0;
@@ -103,8 +103,8 @@ function main() {
 var dark=false;
   const frameUrls = ['fly-0.png', 'fly-1.png', 'fly-2.png', 'fly-3.png', 'fly-4.png',
     'fly-5.png', 'fly-6.png', 'fly-7.png',]; // Add URLs for your frames
-  birdX = canvas.width*0.1;
-  birdY = canvas.height*0.2;
+  birdX = 30;
+  birdY = 120;
  
 
   const frame2Urls = ['walking-0.png','walking-1.png','walking-2.png','walking-3.png','walking-4.png','walking-5.png',
@@ -161,7 +161,7 @@ scaleX=canvas.width/landImg.width
 
     ctx.drawImage(skyImg, skyX, skyY, skyImg.width, skyImg.height / 2);
    
-     ctx.drawImage(landImg, 0, -canvas.height*0.2, landImg.width*scaleX , landImg.height/2);
+     ctx.drawImage(landImg, 0, -100, landImg.width*scaleX , landImg.height/2);
 
 
  
@@ -170,7 +170,7 @@ scaleX=canvas.width/landImg.width
     
     ctx.drawImage(potImg, canvas.width*0.3, canvas.height*0.5, potImg.width /8, potImg.height /8);
     
-    ctx.drawImage(flowerImg,canvas.width*0.249,canvas.height*0.412 , flowerImg.width/4, flowerImg.height/4);
+    ctx.drawImage(flowerImg,canvas.width*0.25,canvas.height*0.40 , flowerImg.width/4, flowerImg.height/4);
 
 
 
@@ -179,7 +179,8 @@ scaleX=canvas.width/landImg.width
 
     // Draw the current frame at position (0, 0)
 
-    ctx.drawImage(waterImg, waterX, waterY);
+    ctx.drawImage(waterImg, waterX, waterY, waterImg.width, waterImg.height*(canvas.height*0.3/waterImg.height));
+
 
     if (sunvisible === true) {
 
